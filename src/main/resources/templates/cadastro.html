@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Sistema de Vendas</title>
+  <link rel="stylesheet" href="css/sistema_de_vendas.css">
+</head>
+<body>
+  <div class="container">
+    
+    <div class="sidebar">
+      <h2>Já possui<br>acesso?</h2>
+      <p>Acesse a area de login<br>clicando abaixo</p>
+      <a href="login.html" class="btn-outline">ENTRAR</a>
+    </div>
+
+    <div class="main-content">
+      <h1>Crie sua conta</h1>
+      <form action="pagina_inicial.html" method="get"> <!--Inicialmente após clicar em cadastro ele somente volta ao inicio-->
+        <input type="email" placeholder="Email" >  <!--Required-->
+        <input type="password" placeholder="Senha" > <!--Required-->
+        <div class="button-group">
+          <button type="reset" class="btn-light">APAGAR</button>
+          <button type="submit" class="btn-primary">CADASTRAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Venda</title>
+  <link rel="stylesheet" href="css/sistema_de_vendas.css">
+</head>
+<body>
+  <div class="container">
+
+    <div class="sidebar">
+      <h2>Bem vindo,<br>Marcela</h2>
+      <p>Você sabia que dois prótons poderia acabar com a evolução científica na terra?</p>
+      <a href="pagina_inicial.html" class="btn-outline">VOLTAR AO INICIO</a>
+      <div class="version-info">
+        <span>versão 1.2.34.56.9</span><br>
+        <span>06 de Novembro de 2024 - 15:57</span>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <h1>FORMULÁRIO DE VENDA</h1>
+      <form action="pagina_inicial.html" method="get"> <!--Inicialmente após clicar em Nova Venda ele somente volta ao inicio-->
+        <input type="text" placeholder="CPF" > <!--Required-->
+        <input type="text" placeholder="Nome" > <!--Required-->
+        <input type="text" placeholder="Contato" > <!--Required-->
+        <input type="text" placeholder="Endereço" > <!--Required-->
+        <input type="email" placeholder="E-mail" > <!--Required-->
+        <input type="text" placeholder="Produto" > <!--Required-->
+
+        <input type="number" id="quantidade" placeholder="Quantidade" min="1" step="1" > <!--Required-->
+        <input type="number" id="valorUnitario" placeholder="Valor Unitário" step="0.01" > <!--Required-->
+        <input type="number" id="desconto" placeholder="Desconto (%)" min="0" max="100" step="0.01">
+
+        <div class="valor-total">
+          <span>VALOR TOTAL</span>
+          <div class="valor-box" id="valorTotal">R$ 0,00</div>
+        </div>
+
+        <div class="button-group">
+          <button type="reset" class="btn-light" onclick="resetarValor()">LIMPAR FICHA</button>
+          <button type="submit" class="btn-primary">CRIAR VENDA</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--JS básico para atualizar o valor total, depois será atualizado para JQuery-->
+  <script src="js/venda.js"></script>
+</body>
+</html>
