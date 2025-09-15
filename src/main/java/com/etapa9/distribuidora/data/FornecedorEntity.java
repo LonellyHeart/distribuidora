@@ -9,30 +9,31 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.validator.constraints.br.CPF;
-
+import org.hibernate.validator.constraints.br.CNPJ;
 
 @Data
 @Entity
 @Table(name = "Funcionario")
-public class FuncionarioEntity {
+public class FornecedorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Size(min = 2, message = "Informe ao menos 2 caracteres para o campo nome")
+    @Size(min = 10, message = "Informe ao menos 2 caracteres para o campo razão social")
     private String nome;
-    
-    @Size(min = 4, message = "Informe ao menos 4 caracteres para o campo login")
-    private String login;
 
-    @Size(min = 6, message = "Informe ao menos 6 caracteres para o campo senha")
-    private String senha;
+    @CNPJ(message = "CNPJ inválido")
+    private String cnpj;
 
+    @NotBlank(message = "Endereço obrigatório")
+    private String endereco;
+
+    @NotBlank(message = "Telefone obrigatório")
+    private String telefone;
+
+    private String adicionais;
 }

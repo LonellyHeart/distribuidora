@@ -16,10 +16,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
 
-
-@Data
+/**
+ *
+ * @author MATRIZ
+ */
+public class ProdutoEntity {
+    @Data
 @Entity
-@Table(name = "Funcionario")
+@Table(name = "Produto")
 public class FuncionarioEntity {
 
     @Id
@@ -29,10 +33,15 @@ public class FuncionarioEntity {
     @Size(min = 2, message = "Informe ao menos 2 caracteres para o campo nome")
     private String nome;
     
-    @Size(min = 4, message = "Informe ao menos 4 caracteres para o campo login")
-    private String login;
+    private String ornecedor;
 
-    @Size(min = 6, message = "Informe ao menos 6 caracteres para o campo senha")
-    private String senha;
+    @NotBlank(message = "Volumetria obrigatório")
+    private String volumetria;
 
+    @NotBlank(message = "Pais de origem obrigatório")
+    private String origem;
+
+    @NotNull(message = "Salário obrigatório")
+    private double salario;
+}
 }

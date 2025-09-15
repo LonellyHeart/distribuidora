@@ -4,6 +4,7 @@
  */
 package com.etapa9.distribuidora.data;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,41 +12,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+        
+        
 @Data
 @Entity
-@Table(name = "venda")
-public class VendaEntity {
+@Table(name = "Produto_has_Venda")
+public class VendaProdutoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
-    private String cpf;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "produto_id", nullable = false)
+    private ProdutoEntity produto;
 
-    @NotBlank(message = "Selecione um nome")
-    private String nome;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "venda_id", nullable = false)
+    private VendaEntity venda;
 
-    @NotBlank
-    private String contato;
-
-    @NotBlank
-    private String endereco;
-
-    @NotBlank
-    private String email;
-
-    @NotBlank(message = "Selecione o Produto")
-    private String item;
-
-    @NotNull(message = "Insira a quantidade")
+    @NotNull
     private Integer quantidade;
 
-    @NotNull(message = "Insira o valor unitário")
+    @NotNull
     private Double unitario;
 
     @NotNull
@@ -53,9 +47,4 @@ public class VendaEntity {
 
     @NotNull
     private Double total;
-    
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEntity cliente;
 }
-
