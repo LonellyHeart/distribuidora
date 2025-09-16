@@ -4,10 +4,15 @@
  */
 package com.etapa9.distribuidora.data;
 
-/**
- *
- * @author MATRIZ
- */
-public class FornecedorRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface FornecedorRepository extends JpaRepository<FornecedorEntity, Integer> {
+    
+    FornecedorEntity findByCnpj(String cnpj);
+    
+    FornecedorEntity findByNome(String nome);
     
 }
+

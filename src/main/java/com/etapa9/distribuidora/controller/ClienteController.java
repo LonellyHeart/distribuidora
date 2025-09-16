@@ -28,7 +28,7 @@ public class ClienteController {
         FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
 
         if (funcionarioLogado != null) {
-            model.addAttribute("funcionario", funcionarioLogado);
+            model.addAttribute("funcionario", funcionarioLogado); // Para exibir botão Voltar no sidebar
         }
         else{
             return "redirect:/login";

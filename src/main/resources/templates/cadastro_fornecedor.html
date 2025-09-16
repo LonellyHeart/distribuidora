@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Fornecedor</title>
-  <link rel="stylesheet" href="css/sistema_de_vendas.css">
+  <title>Cadastro de Novo Fornecedor</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-  <div class="container">
+  <div class="container d-flex flex-column flex-md-row justify-content-center align-items-stretch mt-5">
 
-    <div class="sidebar">
-      <h2>Bem vindo,<br>Pedro</h2>
-      <p>Viu o jogo ontem?</p>
-      <a href="pagina_inicial.html" class="btn-outline">VOLTAR AO INICIO</a>
-      <div class="version-info">
-        <span>versão 1.2.34.56.9</span><br>
-        <span>06 de Novembro de 2024 - 15:57</span>
-      </div>
-    </div>
+    <!-- Sidebar -->
+    <div th:insert="sidebar :: sidebar"></div>
 
-    <div class="main-content">
-      <h1>CADASTRO DE FORNCEDOR</h1>
-      <form action="pagina_inicial.html" method="get"> <!--Inicialmente após clicar em cadastro ele somente volta ao inicio-->
-        <input type="text" placeholder="Razão Social" > <!--Required-->
-        <input type="text" placeholder="CNPJ" > <!--Required-->
-        <input type="text" placeholder="Endereço" > <!--Required-->
-        <input type="text" placeholder="Contato" > <!--Required-->
-        <textarea placeholder="Informações Adicionais"></textarea>
-        <div class="button-group">
-          <button type="reset" class="btn-light">LIMPAR FICHA</button>
-          <button type="submit" class="btn-primary">CADASTRAR</button>
+    <!-- Conteúdo principal -->
+    <div class="main-content p-4 flex-fill shadow-sm bg-white">
+      <h1 class="mb-4 text-center">Cadastro de Novo Fornecedor</h1>
+
+      <form th:action="@{/salvarFornecedor}" th:object="${fornecedor}" method="post">
+        
+        <!-- Razão Social -->
+        <div class="form-group mb-3">
+          <label for="nome">Razão Social</label>
+          <input id="nome" type="text" class="form-control" th:field="*{nome}" placeholder="Digite a razão social" required>
+          <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
         </div>
+
+        <!-- CNPJ -->
+        <div class="form-group mb-3">
+          <label for="cnpj">CNPJ</label>
+          <input id="cnpj" type="text" class="form-control" th:field="*{cnpj}" placeholder="Digite o CNPJ" required>
+          <div class="text-danger" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="form-group mb-3">
+          <label for="endereco">Endereço</label>
+          <input id="endereco" type="text" class="form-control" th:field="*{endereco}" placeholder="Digite o endereço" required>
+          <div class="text-danger" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"></div>
+        </div>
+
+        <!-- Contato -->
+        <div class="form-group mb-3">
+          <label for="telefone">Contato</label>
+          <input id="telefone" type="text" class="form-control" th:field="*{telefone}" placeholder="Digite o telefone" required>
+          <div class="text-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+        </div>
+
+        <!-- Informações adicionais (Não é obrigatoria) -->
+        <div class="form-group mb-3">
+          <label for="adicionais">Informações Adicionais</label>
+          <textarea id="adicionais" class="form-control" th:field="*{adicionais}" placeholder="Digite as informações adicionais"></textarea>
+          <div class="text-danger" th:if="${#fields.hasErrors('adicionais')}" th:errors="*{adicionais}"></div>
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="reset" class="btn btn-secondary">LIMPAR FICHA</button>
+          <button type="submit" class="btn btn-primary">CADASTRAR</button>
+        </div>
+
       </form>
     </div>
   </div>
