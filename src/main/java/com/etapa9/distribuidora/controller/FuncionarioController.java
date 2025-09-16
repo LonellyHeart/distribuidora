@@ -20,7 +20,7 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService funcionarioService;
 
-    // A Pagina inicial vai ser a tela de cadastro (seguindo o Figma)
+    // A "Pagina inicial" vai ser a tela de cadastro (seguindo o Figma)
     @GetMapping("/")
     public String mostrarCadastroForm(Model model) {
         model.addAttribute("funcionario", new FuncionarioEntity());
@@ -54,5 +54,13 @@ public class FuncionarioController {
             model.addAttribute("erro", "Login ou senha incorretos");
             return "login";
         }
-    }   
+    }
+
+    // Esse processo é utilizado para quando o usuario clicar em 'SAIR DO SISTEMA' ele não mais conseguir acessar as paginas protegidas, e ter que novamente fazer login
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
 }
