@@ -45,4 +45,12 @@ public class FuncionarioService {
     public void deletarFuncionario(Integer id) {
         funcionarioRepository.deleteById(id);
     }
+    
+    public FuncionarioEntity autenticar(String login, String senha) {
+    FuncionarioEntity funcionario = funcionarioRepository.findByLogin(login);
+    if (funcionario != null && funcionario.getSenha().equals(senha)) {
+        return funcionario; 
+    }
+    return null; 
+}
 }

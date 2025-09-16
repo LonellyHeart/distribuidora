@@ -23,7 +23,7 @@ public class FuncionarioController {
     @GetMapping("/")
     public String mostrarCadastroForm(Model model) {
         model.addAttribute("funcionario", new FuncionarioEntity());
-        return "cadastro"; 
+        return "cadastro";
     }
 
     @PostMapping("/salvarFuncionario")
@@ -38,5 +38,18 @@ public class FuncionarioController {
     @GetMapping("/login")
     public String mostrarLoginForm() {
         return "login";
+    }
+
+    @PostMapping("/login")
+    public String processarLogin(@RequestParam("login") String login, @RequestParam("senha") String senha, Model model) {
+
+        FuncionarioEntity funcionario = funcionarioService.autenticar(login, senha);
+
+        if (funcionario != null) {
+            return "redirect:/pagina_inicial";
+        } else {
+            model.addAttribute("erro", "Login ou senha incorretos");
+            return "login";
+        }
     }
 }
