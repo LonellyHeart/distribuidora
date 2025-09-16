@@ -11,7 +11,7 @@
         <relativePath/>  
     </parent> 
     <groupId>com.etapa9</groupId>
-    <artifactId>distribuidoral</artifactId>
+    <artifactId>distribuidora</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>distribuidora</name>
     <description>Projeto referente a atividade 2 da UC 14</description>
