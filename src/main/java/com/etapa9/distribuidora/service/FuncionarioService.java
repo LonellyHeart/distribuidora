@@ -4,10 +4,45 @@
  */
 package com.etapa9.distribuidora.service;
 
-/**
- *
- * @author MATRIZ
- */
+import com.etapa9.distribuidora.data.FuncionarioEntity;
+import com.etapa9.distribuidora.data.FuncionarioRepository;
+import com.etapa9.distribuidora.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
 public class FuncionarioService {
-    
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+
+    public FuncionarioEntity criarFuncionario(FuncionarioEntity funcionario) {
+        return funcionarioRepository.save(funcionario);
+    }
+
+    public FuncionarioEntity atualizarFuncionario(Integer id, FuncionarioEntity funcionarioAtualizado) {
+        FuncionarioEntity funcionario = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com id " + id));
+
+        funcionario.setNome(funcionarioAtualizado.getNome());
+        funcionario.setLogin(funcionarioAtualizado.getLogin());
+        funcionario.setSenha(funcionarioAtualizado.getSenha());
+
+        return funcionarioRepository.save(funcionario);
+    }
+
+    public List<FuncionarioEntity> listarFuncionarios() {
+        return funcionarioRepository.findAll();
+    }
+
+    public FuncionarioEntity getFuncionarioById(Integer id) {
+        return funcionarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Funcionário não encontrado com id " + id));
+    }
+
+    public void deletarFuncionario(Integer id) {
+        funcionarioRepository.deleteById(id);
+    }
 }

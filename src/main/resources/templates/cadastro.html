@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Sistema de Vendas</title>
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- CSS Customizado -->
-    <link rel="stylesheet" th:href="@{/style.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Sistema de Vendas</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <div class="row w-100 shadow rounded overflow-hidden">
-            
-            <!-- Sidebar -->
-            <div class="col-md-5 bg-dark text-white d-flex flex-column align-items-center justify-content-center p-4">
-                <h2 class="mb-3">Já possui<br>acesso?</h2>
-                <p class="text-center">Acesse a área de login clicando abaixo</p>
-                <a th:href="@{/login}" class="btn btn-outline-light mt-3">ENTRAR</a>
-            </div>
-            
-            <!-- Conteúdo principal -->
-            <div class="col-md-7 bg-white p-5">
-                <h1 class="mb-4 text-center">Crie sua conta</h1>
-                
-                <!-- Formulário -->
-                <form th:action="@{/cadastro}" method="post" th:object="${usuario}">
-                    
-                    <div class="form-group">
-                        <input type="email" th:field="*{email}" class="form-control" placeholder="Email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <input type="password" th:field="*{senha}" class="form-control" placeholder="Senha" required>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between mt-4">
-                        <button type="reset" class="btn btn-light">APAGAR</button>
-                        <button type="submit" class="btn btn-primary">CADASTRAR</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+  <div class="container d-flex flex-column flex-md-row justify-content-center align-items-stretch mt-5">
+
+    <!-- Sidebar -->
+    <div class="sidebar text-white d-flex flex-column justify-content-center align-items-center p-4">
+      <h2 class="mb-3">Já possui<br>acesso?</h2>
+      <p class="mb-4 text-center">Acesse a área de login<br>clicando abaixo</p>
+      <a th:href="@{/login}" class="btn btn-light">ENTRAR</a>
     </div>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Home para cadastro -->
+    <div class="main-content p-4 flex-fill shadow-sm bg-white">
+        <h1 class="mb-4">Crie sua conta</h1>
+      <form th:action="@{/salvarFuncionario}" th:object="${funcionario}" method="post">
+        
+        <!-- Nome (Ele somente sera usado para aparecer na sidebar das outras paginas)-->
+        <div class="form-group mb-3">
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" class="form-control" th:field="*{nome}" placeholder="Digite seu nome">
+          <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+        </div>
+
+        <!-- Login -->
+        <div class="form-group mb-3">
+          <label for="login">Login</label>
+          <input id="login" type="text" class="form-control" th:field="*{login}" placeholder="Digite seu login">
+          <div class="text-danger" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+        </div>
+
+        <!-- Senha -->
+        <div class="form-group mb-3">
+          <label for="senha">Senha</label>
+          <input id="senha" type="password" class="form-control" th:field="*{senha}" placeholder="Digite sua senha">
+          <div class="text-danger" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+        </div>
+
+        <!-- Botões -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="reset" class="btn btn-secondary">APAGAR</button>
+          <button type="submit" class="btn btn-primary">CADASTRAR</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

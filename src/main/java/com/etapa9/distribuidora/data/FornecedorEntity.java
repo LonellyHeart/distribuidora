@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 @Data
 @Entity
-@Table(name = "Funcionario")
+@Table(name = "Fornecedor")
 public class FornecedorEntity {
 
     @Id

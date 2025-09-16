@@ -4,10 +4,12 @@
  */
 package com.etapa9.distribuidora.data;
 
-/**
- *
- * @author MATRIZ
- */
-public class FuncionarioRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
     
+    FuncionarioEntity findByLogin(String login);
 }
+
