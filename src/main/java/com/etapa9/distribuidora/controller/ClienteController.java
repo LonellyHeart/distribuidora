@@ -40,7 +40,7 @@ public class ClienteController {
     }
 
     // Salvar cliente após cadastro
-    @PostMapping("/cadastro-cliente")
+    @PostMapping("/salvarCliente")
     public String salvarCliente(@Valid @ModelAttribute("cliente") ClienteEntity cliente, BindingResult result,  Model model, HttpSession session) {
         if (result.hasErrors()) {
 

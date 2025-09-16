@@ -38,7 +38,7 @@ public class FornecedorController {
     }
 
     // Salvar fornecedor
-    @PostMapping("/cadastro-fornecedor")
+    @PostMapping("/salvarFornecedor")
     public String salvarFornecedor(@Valid @ModelAttribute("fornecedor") FornecedorEntity fornecedor, BindingResult result, Model model, HttpSession session) {
         if (result.hasErrors()) {
             FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
