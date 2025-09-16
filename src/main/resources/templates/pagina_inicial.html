@@ -1,35 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página Inicial</title>
-  <link rel="stylesheet" href="css/sistema_de_vendas.css">
+  <title>Página Inicial - Sistema de Vendas</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-  <div class="container">
+  <div class="container d-flex flex-column flex-md-row justify-content-center align-items-stretch mt-5">
+
     <!-- Sidebar -->
-    <div class="sidebar">
-      <h2>Bem vindo,<br>Carolina</h2>
-      <p>Tenha um ótimo dia</p>
-      <div class="version-info">
-        <span>versão 1.2.34.56.9</span><br>
-        <span>06 de Novembro de 2024 - 15:57</span>
-      </div>
-    </div>
+    <div th:insert="sidebar :: sidebar"></div>
 
-    <!-- Conteúdo principal -->
-    <div class="main-content">
-      <h1>O que deseja fazer?</h1>
-      <div class="menu-buttons">
-        <a href="cadastro_cliente.html" class="menu-btn">Cadastro de Cliente</a>
-        <a href="cadastro_fornecedor.html" class="menu-btn">Cadastro de Fornecedor</a>
-        <a href="cadastro_produto.html" class="menu-btn">Cadastro de Produto</a>
+    <!-- Texto centralizado -->
+    <div class="main-content p-4 flex-fill shadow-sm bg-white d-flex flex-column align-items-center">
+      <h1 class="mb-4">O que deseja fazer?</h1>
+
+      <!-- Menu principal -->
+      <div class="menu-buttons d-flex flex-column mb-4" style="width: 100%; max-width: 400px;">
+        <a th:href="@{/cadastro-cliente}" class="btn btn-primary mb-2">Cadastro de Cliente</a>
+        <a th:href="@{/cadastro-fornecedor}" class="btn btn-primary mb-2">Cadastro de Fornecedor</a>
+        <a th:href="@{/cadastro-produto}" class="btn btn-primary mb-2">Cadastro de Produto</a>
       </div>
 
-      <div class="bottom-buttons">
-        <a href="login.html" class="btn-light">SAIR DO SISTEMA</a>
-        <a href="venda.html" class="btn-primary">NOVA VENDA</a>
+      <!-- Botões -->
+      <div class="bottom-buttons d-flex justify-content-between" style="width: 100%; max-width: 400px;">
+        <a th:href="@{/login}" class="btn btn-secondary">SAIR DO SISTEMA</a>
+        <a th:href="@{/nova-venda}" class="btn btn-primary">NOVA VENDA</a>
       </div>
     </div>
   </div>

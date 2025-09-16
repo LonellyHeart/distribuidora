@@ -6,6 +6,7 @@ package com.etapa9.distribuidora.controller;
 
 import com.etapa9.distribuidora.data.FuncionarioEntity;
 import com.etapa9.distribuidora.service.FuncionarioService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,15 +42,17 @@ public class FuncionarioController {
     }
 
     @PostMapping("/login")
-    public String processarLogin(@RequestParam("login") String login, @RequestParam("senha") String senha, Model model) {
+    public String processarLogin(@RequestParam("login") String login, @RequestParam("senha") String senha, HttpSession session, Model model) {
 
         FuncionarioEntity funcionario = funcionarioService.autenticar(login, senha);
 
         if (funcionario != null) {
-            return "redirect:/pagina_inicial";
+            session.setAttribute("funcionarioLogado", funcionario); //  Esse processo é utilizado para salvar o nome do funcionario logado, para que aparece no navbar.
+
+            return "redirect:/pagina-inicial";
         } else {
             model.addAttribute("erro", "Login ou senha incorretos");
             return "login";
         }
-    }
+    }   
 }
