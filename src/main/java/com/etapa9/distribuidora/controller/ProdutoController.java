@@ -1,6 +1,7 @@
 package com.etapa9.distribuidora.controller;
 
 import com.etapa9.distribuidora.data.FornecedorEntity;
+import com.etapa9.distribuidora.data.FornecedorRepository;
 import com.etapa9.distribuidora.data.FuncionarioEntity;
 import com.etapa9.distribuidora.data.ProdutoEntity;
 import com.etapa9.distribuidora.service.FornecedorService;
@@ -23,6 +24,10 @@ public class ProdutoController {
 
     @Autowired
     private FornecedorService fornecedorService;
+    
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
+    
 
     // Página de cadastro de produto
     @GetMapping("/cadastro-produto")
@@ -30,7 +35,7 @@ public class ProdutoController {
         FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
 
         if (funcionarioLogado != null) {
-            model.addAttribute("funcionario", funcionarioLogado); // Para exibir botão Voltar no sidebar
+            model.addAttribute("funcionario", funcionarioLogado); 
         } else {
             return "redirect:/login";
         }
@@ -40,31 +45,36 @@ public class ProdutoController {
         // Carrega todos os fornecedores para o select no cadastro_fornecedor.html
         List<FornecedorEntity> fornecedores = fornecedorService.listarFornecedores();
         model.addAttribute("fornecedores", fornecedores);
-
+        
+        model.addAttribute("mostrarVoltar", true); // Para exibir botão Voltar no sidebar
         return "cadastro_produto";
     }
 
     // Salvar produto
-    @PostMapping("/salvarProduto")
-    public String salvarProduto(@Valid @ModelAttribute("produto") ProdutoEntity produto, BindingResult result, Model model, HttpSession session) {
+@PostMapping("/salvarProduto")
+public String salvarProduto(@RequestParam("fornecedorEntity.id") int fornecedorId, @Valid @ModelAttribute("produto") ProdutoEntity produto, BindingResult result, Model model, HttpSession session) {
 
-        FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
-
-        if (funcionarioLogado == null) {
-            return "redirect:/login";
-        } else {
-            model.addAttribute("funcionario", funcionarioLogado);
-        }
-
-        if (result.hasErrors()) {
-            
-            List<FornecedorEntity> fornecedores = fornecedorService.listarFornecedores();
-            model.addAttribute("fornecedores", fornecedores);
-
-            return "cadastro_produto";
-        }
-
-        produtoService.salvarProduto(produto);
-        return "redirect:/pagina-inicial";
+    FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
+    if (funcionarioLogado == null) {
+        return "redirect:/login";
+    } else {
+        model.addAttribute("funcionario", funcionarioLogado);
     }
+
+    if (result.hasErrors()) {
+        List<FornecedorEntity> fornecedores = fornecedorService.listarFornecedores();
+        model.addAttribute("fornecedores", fornecedores);
+        return "cadastro_produto";
+    }
+
+    FornecedorEntity forn = fornecedorRepository.findById(fornecedorId)
+            .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+
+    produto.setFornecedorEntity(forn); // Essa é a chave estrangeira do Fornecedor no Produto
+    produto.setFornecedor(forn.getNome());
+
+    produtoService.salvarProduto(produto);
+    return "redirect:/pagina-inicial";
+}
+
 }

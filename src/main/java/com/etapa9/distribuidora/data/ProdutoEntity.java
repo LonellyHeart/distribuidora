@@ -27,17 +27,20 @@ public class ProdutoEntity {
 
     @Size(min = 2, message = "Informe ao menos 2 caracteres para o campo nome")
     private String nome;
-    
-    @ManyToOne
-    @JoinColumn(name = "fornecedor-id", nullable = false)
-    private FornecedorEntity fornecedor;
 
     @NotBlank(message = "Volumetria obrigatório")
     private String volumetria;
+    
+    @NotBlank
+    private String fornecedor;
 
     @NotBlank(message = "Pais de origem obrigatório")
     private String origem;
     
     private String adicionais;
+    
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_id", nullable = false)
+    private FornecedorEntity fornecedorEntity;
     
 }

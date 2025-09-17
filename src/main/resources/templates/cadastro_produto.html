@@ -17,47 +17,46 @@
     <div class="main-content p-4 flex-fill shadow-sm bg-white">
       <h1 class="mb-4 text-center">Cadastro de Produto</h1>
 
-      <form th:action="@{/salvarProduto}" th:object="${produto}" method="post">
-        
+      <!-- Formulário -->
+      <form th:action="@{/salvarProduto}" method="post">
+
         <!-- Nome do Produto -->
         <div class="form-group mb-3">
           <label for="nome">Nome do Produto</label>
-          <input id="nome" type="text" class="form-control" th:field="*{nome}" placeholder="Digite o nome do produto" required>
-          <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+          <input id="nome" type="text" name="nome" class="form-control" placeholder="Digite o nome do produto" required>
         </div>
 
         <!-- Fornecedor -->
         <div class="form-group mb-3">
-          <label for="fornecedor">Fornecedor</label>
-          <select id="fornecedor" class="form-control" th:field="*{fornecedor}" required>
+          <label for="fornecedorSelect">Fornecedor</label>
+          <select id="fornecedorSelect" name="fornecedorEntity.id" class="form-control" required>
             <option value="" disabled selected>Selecione o fornecedor</option>
-            <option th:each="forn : ${fornecedores}" 
-                    th:value="${forn.id}" 
-                    th:text="${forn.nome}">
-            </option>
+            <option th:each="forn : ${fornecedores}"
+                    th:value="${forn.id}"
+                    th:data-nome="${forn.nome}"
+                    th:text="${forn.nome}"></option>
           </select>
-          <div class="text-danger" th:if="${#fields.hasErrors('fornecedor')}" th:errors="*{fornecedor}"></div>
         </div>
+
+        <!-- Hidden que recebe o nome via JS -->
+        <input type="hidden" id="fornecedor" name="fornecedor">
 
         <!-- Volumetria -->
         <div class="form-group mb-3">
           <label for="volumetria">Volumetria</label>
-          <input id="volumetria" type="text" class="form-control" th:field="*{volumetria}" placeholder="Digite a volumetria" required>
-          <div class="text-danger" th:if="${#fields.hasErrors('volumetria')}" th:errors="*{volumetria}"></div>
+          <input id="volumetria" type="text" name="volumetria" class="form-control" placeholder="Digite a volumetria" required>
         </div>
 
         <!-- Origem -->
         <div class="form-group mb-3">
           <label for="origem">Origem</label>
-          <input id="origem" type="text" class="form-control" th:field="*{origem}" placeholder="Digite o país de origem" required>
-          <div class="text-danger" th:if="${#fields.hasErrors('origem')}" th:errors="*{origem}"></div>
+          <input id="origem" type="text" name="origem" class="form-control" placeholder="Digite o país de origem" required>
         </div>
 
-        <!-- Informações Adicionais -->
+        <!-- Informações Adicionais (Não obrigatória)-->
         <div class="form-group mb-3">
           <label for="adicionais">Informações Adicionais</label>
-          <textarea id="adicionais" class="form-control" th:field="*{adicionais}" placeholder="Digite informações adicionais"></textarea>
-          <div class="text-danger" th:if="${#fields.hasErrors('adicionais')}" th:errors="*{adicionais}"></div>
+          <textarea id="adicionais" name="adicionais" class="form-control" placeholder="Digite informações adicionais"></textarea>
         </div>
 
         <!-- Botões -->
@@ -69,5 +68,8 @@
       </form>
     </div>
   </div>
+
+  <!-- Script que pega o nome do fornecedor selecionado -->
+  <script th:src="@{/js.js}"></script>
 </body>
 </html>

@@ -20,10 +20,10 @@ import org.hibernate.validator.constraints.br.CNPJ;
 public class FornecedorEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min = 10, message = "Informe ao menos 2 caracteres para o campo razão social")
+    @Size(min = 10, message = "Informe ao menos 10 caracteres para o campo razão social")
     private String nome;
 
     @CNPJ(message = "CNPJ inválido")

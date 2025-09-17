@@ -19,6 +19,7 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public ProdutoEntity salvarProduto(ProdutoEntity produto) {
+
         return produtoRepository.save(produto);
     }
 
@@ -28,6 +29,7 @@ public class ProdutoService {
 
         produto.setNome(produtoAtualizado.getNome());
         produto.setFornecedor(produtoAtualizado.getFornecedor());
+        produto.setFornecedorEntity(produtoAtualizado.getFornecedorEntity());
         produto.setVolumetria(produtoAtualizado.getVolumetria());
         produto.setOrigem(produtoAtualizado.getOrigem());
         produto.setAdicionais(produtoAtualizado.getAdicionais());
