@@ -1,102 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Venda</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <link rel="stylesheet" th:href="@{/style.css}">
-</head>
-<body>
-  <div class="container d-flex flex-column flex-md-row justify-content-center align-items-stretch mt-5">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nova Venda</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{/style.css}">
+    </head>
+    <body>
+        <div class="container d-flex flex-column flex-md-row justify-content-center align-items-stretch mt-5">
 
-    <!-- Sidebar -->
-    <div th:insert="sidebar :: sidebar"></div>
+            <!-- Sidebar -->
+            <div th:insert="sidebar :: sidebar"></div>
 
-    <!-- Conteúdo principal -->
-    <div class="main-content p-4 flex-fill shadow-sm bg-white">
-      <h1 class="mb-4 text-center">Nova Venda</h1>
+            <!-- Conteúdo principal -->
+            <div class="main-content p-4 flex-fill shadow-sm bg-white">
+                <h1 class="mb-4 text-center">Nova Venda</h1>
 
-      <form th:action="@{/salvarVenda}" method="post">
+                <form th:action="@{/salvarVenda}" method="post">
 
-        <!-- Cliente -->
-        <div class="form-group mb-3">
-          <label for="clienteSelect">Nome do Cliente</label>
-          <select id="clienteSelect" name="clienteEntity.id" class="form-control" required>
-            <option value="" disabled selected>Selecione o cliente</option>
-            <option th:each="cli : ${clientes}"
-                    th:value="${cli.id}"
-                    th:data-cpf="${cli.cpf}"
-                    th:data-contato="${cli.contato}"
-                    th:data-endereco="${cli.endereco}"
-                    th:data-email="${cli.email}"
-                    th:text="${cli.nome}"></option>
-          </select>
+                    <!-- Cliente -->
+                    <div class="form-group mb-3">
+                        <label for="clienteSelect">Nome do Cliente</label>
+                        <select id="clienteSelect" name="clienteEntity.id" class="form-control" required>
+                            <option value="" disabled selected>Selecione o cliente</option>
+                            <option th:each="cli : ${clientes}"
+                                    th:value="${cli.id}"
+                                    th:data-cpf="${cli.cpf}"
+                                    th:data-contato="${cli.contato}"
+                                    th:data-endereco="${cli.endereco}"
+                                    th:data-email="${cli.email}"
+                                    th:text="${cli.nome}"></option>
+                        </select>
+                    </div>
+                    
+                    <!-- Campo para encher o nome do cliente após seleção -->
+                    <input type="hidden" id="nome" name="nome">
+
+
+                    <!-- Campos preenchidos automaticamente do cliente -->
+                    <div class="form-group mb-3">
+                        <label for="cpf">CPF</label>
+                        <input id="cpf" type="text" name="cpf" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="contato">Contato</label>
+                        <input id="contato" type="text" name="contato" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="endereco">Endereço</label>
+                        <input id="endereco" type="text" name="endereco" class="form-control" readonly>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" class="form-control" readonly>
+                    </div>
+
+                    <!-- Produto -->
+                    <div class="form-group mb-3">
+                        <label for="produtoSelect">Produto</label>
+                        <select id="produtoSelect" name="item" class="form-control" required>
+                            <option value="" disabled selected>Selecione o produto</option>
+                            <option th:each="prod : ${produtos}" 
+                                    th:value="${prod.nome}" 
+                                    th:text="${prod.nome}"></option>
+                        </select>
+                    </div>
+
+                    <!-- Quantidade, unitário, desconto e total -->
+                    <div class="form-group mb-3">
+                        <label for="quantidade">Quantidade</label>
+                        <input id="quantidade" type="number" name="quantidade" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="unitario">Valor Unitário</label>
+                        <input id="unitario" type="number" step="0.01" name="unitario" class="form-control" required>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="desconto">Desconto</label>
+                        <input id="desconto" type="number" step="0.01" name="desconto" class="form-control" value="0">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="total">Total</label>
+                        <input id="total" type="number" step="0.01" name="total" class="form-control" readonly>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="reset" class="btn btn-secondary">Limpar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Venda</button>
+                    </div>
+
+                </form>
+            </div>
         </div>
 
-        <!-- Campos preenchidos automaticamente do cliente -->
-        <div class="form-group mb-3">
-          <label for="cpf">CPF</label>
-          <input id="cpf" type="text" name="cpf" class="form-control" readonly>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="contato">Contato</label>
-          <input id="contato" type="text" name="contato" class="form-control" readonly>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="endereco">Endereço</label>
-          <input id="endereco" type="text" name="endereco" class="form-control" readonly>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="email">Email</label>
-          <input id="email" type="email" name="email" class="form-control" readonly>
-        </div>
-
-        <!-- Produto -->
-        <div class="form-group mb-3">
-          <label for="produtoSelect">Produto</label>
-          <select id="produtoSelect" name="item" class="form-control" required>
-            <option value="" disabled selected>Selecione o produto</option>
-            <option th:each="prod : ${produtos}" 
-                    th:value="${prod.nome}" 
-                    th:text="${prod.nome}"></option>
-          </select>
-        </div>
-
-        <!-- Quantidade, unitário, desconto e total -->
-        <div class="form-group mb-3">
-          <label for="quantidade">Quantidade</label>
-          <input id="quantidade" type="number" name="quantidade" class="form-control" required>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="unitario">Valor Unitário</label>
-          <input id="unitario" type="number" step="0.01" name="unitario" class="form-control" required>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="desconto">Desconto</label>
-          <input id="desconto" type="number" step="0.01" name="desconto" class="form-control" required>
-        </div>
-
-        <div class="form-group mb-3">
-          <label for="total">Total</label>
-          <input id="total" type="number" step="0.01" name="total" class="form-control" readonly>
-        </div>
-
-        <div class="d-flex justify-content-between mt-4">
-          <button type="reset" class="btn btn-secondary">Limpar</button>
-          <button type="submit" class="btn btn-primary">Salvar Venda</button>
-        </div>
-
-      </form>
-    </div>
-  </div>
-
-  <!-- JS com a logica de preenchimento automatico dos campos do cliente-->
-  <script th:src="@{/js.js}"></script>
-</body>
+        <!-- JS com a logica de preenchimento automatico dos campos do cliente e do calculo total do produto-->
+        <script th:src="@{/js.js}"></script>
+    </body>
 </html>

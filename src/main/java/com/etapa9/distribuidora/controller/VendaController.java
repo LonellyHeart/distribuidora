@@ -1,6 +1,7 @@
 package com.etapa9.distribuidora.controller;
 
 import com.etapa9.distribuidora.data.ClienteEntity;
+import com.etapa9.distribuidora.data.ClienteRepository;
 import com.etapa9.distribuidora.data.FuncionarioEntity;
 import com.etapa9.distribuidora.data.ProdutoEntity;
 import com.etapa9.distribuidora.data.VendaEntity;
@@ -28,6 +29,10 @@ public class VendaController {
 
     @Autowired
     private ProdutoService produtoService;
+    
+    @Autowired
+    private ClienteRepository clienteRepository;
+    
 
     @GetMapping("/nova-venda")
     public String novaVendaForm(HttpSession session, Model model) {
@@ -48,24 +53,34 @@ public class VendaController {
         return "nova_venda"; // Nome do template HTML
     }
 
-    @PostMapping("/salvarVenda")
-    public String salvarVenda(@Valid @ModelAttribute("vendaEntity") VendaEntity venda, BindingResult result, HttpSession session, Model model) {
-        
-        FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
-        if (funcionarioLogado == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("funcionario", funcionarioLogado);
+@PostMapping("/salvarVenda")
+public String salvarVenda(@RequestParam("clienteEntity.id") int clienteId, @Valid @ModelAttribute("vendaEntity") VendaEntity venda, BindingResult result, HttpSession session, Model model) {
 
-        if (result.hasErrors()) {
-            model.addAttribute("clientes", clienteService.listarClientes());
-            model.addAttribute("produtos", produtoService.listarProdutos());
-            return "nova_venda";
-        }
+    FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
+    if (funcionarioLogado == null) return "redirect:/login";
 
-        // Salva a venda
-        vendaService.salvarVenda(venda);
+    model.addAttribute("funcionario", funcionarioLogado);
 
-        return "redirect:/nova-venda";
+    if (result.hasErrors()) {
+        model.addAttribute("clientes", clienteService.listarClientes());
+        model.addAttribute("produtos", produtoService.listarProdutos());
+        return "nova_venda";
     }
+
+    ClienteEntity cliente = clienteRepository.findById(clienteId)
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+    venda.setClienteEntity(cliente);// Essa é a chave estrangeira do Cliente na Venda
+
+    // Campos obrigatórios do cliente
+    venda.setNome(cliente.getNome());
+    venda.setCpf(cliente.getCpf());
+    venda.setContato(cliente.getContato());
+    venda.setEndereco(cliente.getEndereco());
+    venda.setEmail(cliente.getEmail());
+
+    vendaService.salvarVenda(venda);
+
+    return "redirect:/nova-venda";
+}
 }

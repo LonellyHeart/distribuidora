@@ -17,14 +17,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // --- Lógica de preenchimento automático dos campos do cliente ---
   const clienteSelect = document.getElementById("clienteSelect");
+  const nomeHidden = document.getElementById("nome");
   const cpf = document.getElementById("cpf");
   const contato = document.getElementById("contato");
   const endereco = document.getElementById("endereco");
   const email = document.getElementById("email");
+  
 
   if (clienteSelect) {
     clienteSelect.addEventListener("change", function() {
       const selected = this.options[this.selectedIndex];
+      nomeHidden.value = selected.dataset.clienteSelect;
       cpf.value = selected.dataset.cpf || '';
       contato.value = selected.dataset.contato || '';
       endereco.value = selected.dataset.endereco || '';

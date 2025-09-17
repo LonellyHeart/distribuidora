@@ -28,8 +28,8 @@ public class VendaService {
     public VendaEntity salvarVenda(VendaEntity venda) {
         return vendaRepository.save(venda);
     }
-    
-        public VendaEntity getClienteById(Integer id) {
+
+    public VendaEntity getClienteById(Integer id) {
         return vendaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Venda não encontrado com id " + id));
     }
