@@ -7,6 +7,7 @@ package com.etapa9.distribuidora.service;
 import com.etapa9.distribuidora.data.FuncionarioEntity;
 import com.etapa9.distribuidora.data.FuncionarioRepository;
 import com.etapa9.distribuidora.exception.ResourceNotFoundException;
+import com.etapa9.distribuidora.utils.Criptografia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class FuncionarioService {
     private FuncionarioRepository funcionarioRepository;
 
     public FuncionarioEntity criarFuncionario(FuncionarioEntity funcionario) {
+        funcionario.setSenha(Criptografia.hashPassword(funcionario.getSenha())); // Essa linha serve para criptografar a senha usando o metodo estatico Criptografia
         return funcionarioRepository.save(funcionario);
     }
 
@@ -45,12 +47,12 @@ public class FuncionarioService {
     public void deletarFuncionario(Integer id) {
         funcionarioRepository.deleteById(id);
     }
-    
+
     public FuncionarioEntity autenticar(String login, String senha) {
-    FuncionarioEntity funcionario = funcionarioRepository.findByLogin(login);
-    if (funcionario != null && funcionario.getSenha().equals(senha)) {
-        return funcionario; 
+        FuncionarioEntity funcionario = funcionarioRepository.findByLogin(login);
+        if (funcionario != null && funcionario.getSenha().equals(Criptografia.hashPassword(senha))) { // Aqui ele precisa fazer a condição usando a senha criptografada
+            return funcionario;
+        }
+        return null;
     }
-    return null; 
-}
 }
