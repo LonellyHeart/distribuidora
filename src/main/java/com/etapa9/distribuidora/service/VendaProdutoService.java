@@ -10,4 +10,11 @@ package com.etapa9.distribuidora.service;
  */
 public class VendaProdutoService {
     
+        /*
+    
+    ESSE SERVICE NÃO SERA UTILIZADO POR QUE 1 VENDA É 1 IGUAL PRODUTO
+    NÃO VOU EXCLUIR ELE, PARA CASO EU QUERO IMPLEMENTAR A FUNÇÃO DE TER UMA VENDA COM MAIS PRODUTOS ELE JA ESTA PRONTO
+    
+    */
+    
 }
