@@ -66,3 +66,43 @@
     color: #fff;
 }
 
+
+/* /* INSERIDO DURANTE O LISTA-VENDA.HTML*/
+table.venda-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table.venda-table thead {
+    background-color: #6f42c1;
+}
+
+table.venda-table thead th {
+    color: #fff;
+    text-align: center;
+    border: 1px solid #6f42c1;
+    padding: 12px 15px;
+}
+
+table.venda-table tbody tr {
+    background-color: #b388ff;
+    color: #000;
+    border: 1px solid #6f42c1;
+    transition: background-color 0.3s;
+}
+
+table.venda-table tbody tr:nth-child(even) {
+    background-color: #c2a8ff;
+}
+
+table.venda-table tbody tr:hover {
+    background-color: #d1b3ff;
+}
+
+table.venda-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #6f42c1;
+}
+

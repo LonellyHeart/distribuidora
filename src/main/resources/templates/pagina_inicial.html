@@ -10,24 +10,23 @@
 <body>
   <div class="container d-flex flex-column flex-md-row justify-content-center align-items-stretch mt-5">
 
-    <!-- Sidebar -->
     <div th:insert="sidebar :: sidebar"></div>
 
-    <!-- Texto centralizado -->
     <div class="main-content p-4 flex-fill shadow-sm bg-white d-flex flex-column align-items-center">
       <h1 class="mb-4">O que deseja fazer?</h1>
 
-      <!-- Menu principal -->
       <div class="menu-buttons d-flex flex-column mb-4" style="width: 100%; max-width: 400px;">
         <a th:href="@{/cadastro-cliente}" class="btn btn-primary mb-2">Cadastro de Cliente</a>
         <a th:href="@{/cadastro-fornecedor}" class="btn btn-primary mb-2">Cadastro de Fornecedor</a>
         <a th:href="@{/cadastro-produto}" class="btn btn-primary mb-2">Cadastro de Produto</a>
       </div>
 
-      <!-- Botões -->
-      <div class="bottom-buttons d-flex justify-content-between" style="width: 100%; max-width: 400px;">
-        <a th:href="@{/logout}" class="btn btn-secondary">SAIR DO SISTEMA</a>    
-        <a th:href="@{/nova-venda}" class="btn btn-primary">NOVA VENDA</a>
+      <div class="bottom-buttons d-flex flex-column align-items-center" style="width: 100%; max-width: 400px;">
+        <a th:href="@{/lista-venda}" class="btn btn-primary mb-2" style="width: 70%;">Listagem de Vendas</a>
+        <div class="d-flex justify-content-between w-100">
+          <a th:href="@{/logout}" class="btn btn-secondary">SAIR DO SISTEMA</a>    
+          <a th:href="@{/nova-venda}" class="btn btn-primary">NOVA VENDA</a>
+        </div>
       </div>
     </div>
   </div>

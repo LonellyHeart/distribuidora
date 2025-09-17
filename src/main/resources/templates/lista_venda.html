@@ -24,38 +24,35 @@
 
       <!-- Tabela de vendas -->
       <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th>ID</th>
-              <th>Cliente</th>
-              <th>CPF</th>
-              <th>Contato</th>
-              <th>Email</th>
-              <th>Endereço</th>
-              <th>Produto</th>
-              <th>Quantidade</th>
-              <th>Unitário</th>
-              <th>Desconto</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="venda : ${vendas}">
-              <td th:text="${venda.id}"></td>
-              <td th:text="${venda.nome}"></td>
-              <td th:text="${venda.cpf}"></td>
-              <td th:text="${venda.contato}"></td>
-              <td th:text="${venda.email}">/td>
-              <td th:text="${venda.endereco}"></td>
-              <td th:text="${venda.item}"></td>
-              <td th:text="${venda.quantidade}"></td>
-              <td th:text="${venda.unitario}"></td>
-              <td th:text="${venda.desconto}"></td>
-              <td th:text="${venda.total}"></td>
-            </tr>
-          </tbody>
-        </table>
+<table class="table venda-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Contato</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Unitário</th>
+            <th>Desconto</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="venda : ${vendas}">
+            <td th:text="${venda.id}"></td>
+            <td th:text="${venda.nome}"></td>
+            <td th:text="${venda.cpf}"></td>
+            <td th:text="${venda.contato}"></td>
+            <td th:text="${venda.item}"></td>
+            <td th:text="${venda.quantidade}"></td>
+            <td th:text="${venda.unitario}"></td>
+            <td th:text="${venda.desconto}"></td>
+            <td th:text="${venda.total}"></td>
+        </tr>
+    </tbody>
+</table>
+
       </div>
 
       <!-- Botões inferior -->

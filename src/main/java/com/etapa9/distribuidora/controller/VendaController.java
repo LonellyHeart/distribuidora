@@ -29,10 +29,9 @@ public class VendaController {
 
     @Autowired
     private ProdutoService produtoService;
-    
+
     @Autowired
     private ClienteRepository clienteRepository;
-    
 
     @GetMapping("/nova-venda")
     public String novaVendaForm(HttpSession session, Model model) {
@@ -48,39 +47,57 @@ public class VendaController {
         model.addAttribute("clientes", clientes);
         model.addAttribute("produtos", produtos);
         model.addAttribute("vendaEntity", new VendaEntity());
-        
-        model.addAttribute("mostrarValor", true);  // Para exibir botão Voltar no sidebar
+
+        model.addAttribute("mostrarVoltar", true); // Para exibir botão Voltar no sidebar
         return "nova_venda"; // Nome do template HTML
     }
 
-@PostMapping("/salvarVenda")
-public String salvarVenda(@RequestParam("clienteEntity.id") int clienteId, @Valid @ModelAttribute("vendaEntity") VendaEntity venda, BindingResult result, HttpSession session, Model model) {
+    @PostMapping("/salvarVenda")
+    public String salvarVenda(@RequestParam("clienteEntity.id") int clienteId, @Valid @ModelAttribute("vendaEntity") VendaEntity venda, BindingResult result, HttpSession session, Model model) {
 
-    FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
-    if (funcionarioLogado == null) return "redirect:/login";
+        FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
+        if (funcionarioLogado == null) {
+            return "redirect:/login";
+        }
 
-    model.addAttribute("funcionario", funcionarioLogado);
+        model.addAttribute("funcionario", funcionarioLogado);
 
-    if (result.hasErrors()) {
-        model.addAttribute("clientes", clienteService.listarClientes());
-        model.addAttribute("produtos", produtoService.listarProdutos());
-        return "nova_venda";
+        if (result.hasErrors()) {
+            model.addAttribute("clientes", clienteService.listarClientes());
+            model.addAttribute("produtos", produtoService.listarProdutos());
+            return "nova_venda";
+        }
+
+        ClienteEntity cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        venda.setClienteEntity(cliente);// Essa é a chave estrangeira do Cliente na Venda
+
+        // Campos obrigatórios do cliente
+        venda.setNome(cliente.getNome());
+        venda.setCpf(cliente.getCpf());
+        venda.setContato(cliente.getContato());
+        venda.setEndereco(cliente.getEndereco());
+        venda.setEmail(cliente.getEmail());
+
+        vendaService.salvarVenda(venda);
+
+        return "redirect:/nova-venda";
     }
 
-    ClienteEntity cliente = clienteRepository.findById(clienteId)
-            .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+    @GetMapping("/lista-venda")
+    public String listaVendas(HttpSession session, Model model) {
 
-    venda.setClienteEntity(cliente);// Essa é a chave estrangeira do Cliente na Venda
+        FuncionarioEntity funcionarioLogado = (FuncionarioEntity) session.getAttribute("funcionarioLogado");
+        if (funcionarioLogado == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("funcionario", funcionarioLogado);
+        
+        List<VendaEntity> vendas = vendaService.listarVendas();
+        model.addAttribute("vendas", vendas);
 
-    // Campos obrigatórios do cliente
-    venda.setNome(cliente.getNome());
-    venda.setCpf(cliente.getCpf());
-    venda.setContato(cliente.getContato());
-    venda.setEndereco(cliente.getEndereco());
-    venda.setEmail(cliente.getEmail());
-
-    vendaService.salvarVenda(venda);
-
-    return "redirect:/nova-venda";
-}
+        model.addAttribute("mostrarVoltar", true); // Para exibir botão Voltar no sidebar
+        return "lista_venda";
+    }
 }
