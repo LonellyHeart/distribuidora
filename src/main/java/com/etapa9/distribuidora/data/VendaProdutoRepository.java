@@ -4,10 +4,12 @@
  */
 package com.etapa9.distribuidora.data;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  *
  * @author MATRIZ
  */
-public class VendaProdutoRepository {
-    
+public interface VendaProdutoRepository extends JpaRepository<VendaProdutoEntity, Integer> {
 }
+
