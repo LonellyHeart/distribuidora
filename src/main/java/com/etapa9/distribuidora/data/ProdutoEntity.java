@@ -22,7 +22,7 @@ import lombok.Data;
 public class ProdutoEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(min = 2, message = "Informe ao menos 2 caracteres para o campo nome")

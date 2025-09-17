@@ -56,6 +56,6 @@ public class VendaEntity {
     
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEntity cliente;
+    private ClienteEntity clienteEntity;
 }
 

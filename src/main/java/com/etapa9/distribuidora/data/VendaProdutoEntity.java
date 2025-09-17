@@ -29,12 +29,12 @@ public class VendaProdutoEntity {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
-    private ProdutoEntity produto;
+    private ProdutoEntity produtoEntity;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "venda_id", nullable = false)
-    private VendaEntity venda;
+    private VendaEntity vendaEntity;
 
     @NotNull
     private Integer quantidade;

@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.br.CPF;
 public class ClienteEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @CPF(message = "CPF inválido")
